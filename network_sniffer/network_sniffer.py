@@ -1,5 +1,7 @@
 #!/usr/env/bin python
 import argparse
+import scapy.all as scapy
+from scapy.layers import http
 
 def get_arguments():
     parser = argparse.ArgumentParser()
@@ -12,8 +14,12 @@ def get_arguments():
     return args
 
 args = get_arguments()
-print(args.interface)
 
-# def sniff(interface):
-#     scapy.sniff(iface=interface, store=)
-# import scapy.all as scapy
+def sniff(interface):
+    scapy.sniff(iface=interface, store=False, prn=process_sniffed_packet)
+
+def process_sniffed_packet(packet):
+    if packet.haslayer(http.HTTPRequest):
+        print(packet)
+
+sniff(args.interface)
