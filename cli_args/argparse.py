@@ -13,7 +13,3 @@ def get_arguments():
 
 args = get_arguments()
 print(args.interface)
-
-# def sniff(interface):
-#     scapy.sniff(iface=interface, store=)
-# import scapy.all as scapy
