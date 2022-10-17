@@ -20,7 +20,7 @@ import re
 # print(args.target, args.spoof)
 
 def set_load(packet, load):
-    packetacket[scapy.Raw].load = load
+    packet[scapy.Raw].load = load
     del packet[scapy.IP].len
     del packet[scapy.IP].chksum
     del packet[scapy.TCP].chksum
@@ -32,6 +32,12 @@ def process_packet(packet):
         if scapy_packet[scapy.TCP].dport == 80:
             print("[+] HTTP Request: ")
             modified_load = re.sub("Accept-Encoding:.*?\\r\\n", "", scapy_packet[scapy.Raw].load)
+            new_packet = set_load(scapy_packet, modified_load)
+            packet.set_payload(str(new_packet))
+        elif scapy_packet[scapy.TCP].sport == 80:
+           print("[+] HTTP Response")
+           print(scapy_packet.show())
+
     packet.accept()
 
 try:
