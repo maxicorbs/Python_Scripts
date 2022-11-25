@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import socket
 import json
+import os
 
 class Listener:
     def __init__(self, ip, port):
@@ -32,6 +33,9 @@ class Listener:
             exit()
         return self.reliable_receive()
 
+    def change_working_directory(self, path):
+        os.chdir(path)
+        return "[+] Changing working directory to" + path
     def run(self):
         while True:
             command = raw_input(">>> ")
